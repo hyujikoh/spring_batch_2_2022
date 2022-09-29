@@ -59,7 +59,7 @@ public class MakeRebateOrderItemJobConfig {
                 .writer(rebateOrderItemWriter)
                 .build();
     }
-
+/*
     @StepScope
     @Bean
     public RepositoryItemReader<OrderItem> orderItemReader() {
@@ -69,6 +69,21 @@ public class MakeRebateOrderItemJobConfig {
                 .methodName("findAll")
                 .pageSize(100)
                 .arguments(Arrays.asList())
+                .sorts(Collections.singletonMap("id", Sort.Direction.ASC))
+                .build();
+    }
+*/
+
+
+    @StepScope
+    @Bean
+    public RepositoryItemReader<OrderItem> orderItemReader() {
+        return new RepositoryItemReaderBuilder<OrderItem>()
+                .name("orderItemReader")
+                .repository(orderItemRepository)
+                .methodName("findAllByIdLessThan")
+                .pageSize(100)
+                .arguments(Arrays.asList(6L))
                 .sorts(Collections.singletonMap("id", Sort.Direction.ASC))
                 .build();
     }
