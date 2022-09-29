@@ -21,7 +21,7 @@ import java.util.List;
 @Profile("dev")
 @Slf4j
 public class DevInitData {
-    private boolean initDataDone = false;
+    private boolean initDataDone = false; // 두번 실행 방지를 위해
 
     @Bean
     public CommandLineRunner initData(MemberService memberService, ProductService productService, CartService cartService, OrderService orderService) {
