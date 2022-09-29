@@ -78,18 +78,45 @@ public class MakeRebateOrderItemJobConfig {
 
     @StepScope
     @Bean
-    public RepositoryItemReader<OrderItem> orderItemReader(@Value("#{jobParameters['fromId']}") long fromId,
-                                                           @Value("#{jobParameters['toId']}") long toId
-    ) {
+    public RepositoryItemReader<OrderItem> orderItemReader() {
         return new RepositoryItemReaderBuilder<OrderItem>()
                 .name("orderItemReader")
                 .repository(orderItemRepository)
-                .methodName("findAllByIdBetween")
+                .methodName("findAllByPayDate")
                 .pageSize(100)
-                .arguments(Arrays.asList(fromId, toId))
+                .arguments(Arrays.asList("2022-09"))
                 .sorts(Collections.singletonMap("id", Sort.Direction.ASC))
                 .build();
     }
+
+
+    /**
+     * 결제 여부 조회
+     * @StepScope
+     *     @Bean
+     *     public RepositoryItemReader<OrderItem> orderItemReader() {
+     *         return new RepositoryItemReaderBuilder<OrderItem>()
+     *                 .name("orderItemReader")
+     *                 .repository(orderItemRepository)
+     *                 .methodName("findAllByIsPaid")
+     *                 .pageSize(100)
+     *                 .arguments(Arrays.asList(true))
+     *                 .sorts(Collections.singletonMap("id", Sort.Direction.ASC))
+     *                 .build();
+     *     }
+     * */
+//    public RepositoryItemReader<OrderItem> orderItemReader(@Value("#{jobParameters['fromId']}") long fromId,
+//                                                           @Value("#{jobParameters['toId']}") long toId
+//    ) {
+//        return new RepositoryItemReaderBuilder<OrderItem>()
+//                .name("orderItemReader")
+//                .repository(orderItemRepository)
+//                .methodName("findAllByIdBetween")
+//                .pageSize(100)
+//                .arguments(Arrays.asList(fromId, toId))
+//                .sorts(Collections.singletonMap("id", Sort.Direction.ASC))
+//                .build();
+//    }
 
 
     /*
