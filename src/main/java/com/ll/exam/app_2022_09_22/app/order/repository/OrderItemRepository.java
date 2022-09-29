@@ -14,5 +14,5 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
 
     Page<OrderItem> findAllByIsPaid(boolean isPaid, Pageable pageable);
 
-    Page<OrderItem> findAllByPayDate(LocalDateTime dateTime, Pageable pageable);
+    Page<OrderItem> findAllByPayDateBetween(LocalDateTime fromDate, LocalDateTime toDate, Pageable pageable);
 }
